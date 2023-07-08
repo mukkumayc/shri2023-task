@@ -154,20 +154,17 @@ export function Devices() {
 		setActiveTab(event.target.value)
 	}
 
-	let sizes = []
-	const onSize = size => {
-		sizes = [...sizes, size]
-	}
-
 	useEffect(() => {
-		const sumWidth = sizes.reduce((acc, item) => acc + item.width, 0)
-		const sumHeight = sizes.reduce((acc, item) => acc + item.height, 0)
+		if (!TABS[activeTab]) {
+			return
+		}
+		const sumWidth = TABS[activeTab].items.length * 200
 
 		const newHasRightScroll = sumWidth > ref.current.offsetWidth
 		if (newHasRightScroll !== hasRightScroll) {
 			setHasRightScroll(newHasRightScroll)
 		}
-	})
+	}, [activeTab])
 
 	const onArrowCLick = () => {
 		const scroller = ref.current.querySelector(
@@ -234,7 +231,7 @@ export function Devices() {
 					>
 						<ul className="section__panel-list">
 							{TABS[key].items.map((item, index) => (
-								<Event key={index} {...item} onSize={onSize} />
+								<Event key={index} {...item} />
 							))}
 						</ul>
 					</div>
