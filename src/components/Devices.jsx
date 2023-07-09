@@ -8,7 +8,7 @@ const TABS_KEYS = Object.keys(TABS)
 export function Devices() {
 	const ref = useRef()
 	const [activeTab, setActiveTab] = useState(
-		new URLSearchParams(location.search).get('tab') || 'all',
+		new URLSearchParams(window.location.search).get('tab') || 'all',
 	)
 	const [hasRightScroll, setHasRightScroll] = useState(false)
 
